@@ -1,21 +1,31 @@
 <div class="form-card">
   <div class="input-wrapper">
-    <ion-icon name="add-circle-outline" class="input-icon"></ion-icon>
+    <ion-icon name="create-outline" class="input-icon"></ion-icon>
+
     <ion-input
-      [(ngModel)]="newTitle"
-      placeholder="¿Qué necesitas hacer?"
-      (keyup.enter)="submit()"
       class="form-input"
-      [clearInput]="true">
+      placeholder="Escribe una tarea"
+      [(ngModel)]="newTitle"
+      (keyup.enter)="submit()">
     </ion-input>
   </div>
+
+  <div class="priority-wrapper">
+    <ion-select
+      class="priority-select"
+      [(ngModel)]="priority"
+      interface="popover"
+      placeholder="Prioridad">
+      <ion-select-option value="low">Low</ion-select-option>
+      <ion-select-option value="medium">Medium</ion-select-option>
+      <ion-select-option value="high">High</ion-select-option>
+    </ion-select>
+  </div>
+
   <ion-button
-    fill="solid"
-    shape="round"
-    color="primary"
     class="submit-btn"
     [disabled]="!newTitle.trim()"
     (click)="submit()">
-    <ion-icon slot="icon-only" name="arrow-forward-outline"></ion-icon>
+    <ion-icon slot="icon-only" name="add-outline"></ion-icon>
   </ion-button>
 </div>

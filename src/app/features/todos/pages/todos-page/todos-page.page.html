@@ -17,8 +17,7 @@
         <h2 class="section-title">Pendientes</h2>
         <span class="section-badge">{{ (pending$ | async)?.length }}</span>
       </div>
-      <app-todo-list [tasks]="(pending$ | async) ?? []"
-        (toggle)="toggleTask($event)"
+      <app-todo-list [tasks]="(pending$ | async) ?? []" (toggle)="toggleTask($event)"
         (remove)="deleteTask($event)"></app-todo-list>
     </div>
 
@@ -28,8 +27,7 @@
         <h2 class="section-title">Completadas</h2>
         <span class="section-badge completed">{{ (completed$ | async)?.length }}</span>
       </div>
-      <app-todo-list [tasks]="(completed$ | async) ?? []"
-        (toggle)="toggleTask($event)"
+      <app-todo-list [tasks]="(completed$ | async) ?? []" (toggle)="toggleTask($event)"
         (remove)="deleteTask($event)"></app-todo-list>
     </div>
 

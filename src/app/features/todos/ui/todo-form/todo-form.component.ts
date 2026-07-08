@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { TaskPriority } from '../../models/task';
 
 @Component({
   selector: 'app-todo-form',
@@ -9,19 +10,23 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
   imports: [FormsModule, IonicModule]
 })
-export class TodoFormComponent implements OnInit {
-  @Output() addTask = new EventEmitter<string>();
+export class TodoFormComponent {
+  @Output() addTask = new EventEmitter<{ title: string; priority: TaskPriority }>();
+
   newTitle = '';
-
-  constructor() { }
-
-  ngOnInit() { }
+  priority: TaskPriority = 'medium';
 
   submit() {
-    if (this.newTitle.trim()) {
-      this.addTask.emit(this.newTitle.trim());
+    const title = this.newTitle.trim();
+
+    if (title) {
+      this.addTask.emit({
+        title,
+        priority: this.priority
+      });
+
       this.newTitle = '';
+      this.priority = 'medium';
     }
   }
-
 }

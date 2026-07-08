@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TodoService } from '../../data-access/todo';
-import { Task } from '../../models/task';
+import { Task, PRIORITY_ORDER } from '../../models/task';
 import { TodoFormComponent } from '../../ui/todo-form/todo-form.component';
 import { TodoListComponent } from '../../ui/todo-list/todo-list.component';
 
@@ -22,13 +22,23 @@ export class TodosPagePage implements OnInit {
   constructor(private todoService: TodoService) { }
 
   ngOnInit() {
+
+    const sortByPriority = (tasks: Task[]) =>
+      [...tasks].sort((a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority]);
+
     const tasks$ = this.todoService.tasks$;
-    this.pending$ = tasks$.pipe(map(tasks => tasks.filter(t => !t.completed)));
-    this.completed$ = tasks$.pipe(map(tasks => tasks.filter(t => t.completed)));
+
+    this.pending$ = tasks$.pipe(
+      map(tasks => sortByPriority(tasks.filter(t => !t.completed)))
+    );
+
+    this.completed$ = tasks$.pipe(
+      map(tasks => sortByPriority(tasks.filter(t => t.completed)))
+    );
   }
 
-  addTask(title: string) {
-    this.todoService.addTask(title);
+  addTask(taskData: { title: string; priority: Task['priority'] }) {
+    this.todoService.addTask(taskData.title, taskData.priority);
   }
 
   toggleTask(id: string) {

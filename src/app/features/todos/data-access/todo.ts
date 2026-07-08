@@ -11,11 +11,12 @@ export class TodoService {
 
   constructor() { }
 
-  addTask(title: string) {
+  addTask(title: string, priority: Task['priority'] = 'medium') {
     const newTask: Task = {
       id: Date.now().toString(),
       title,
-      completed: false
+      completed: false,
+      priority
     };
     this.tasksSubject.next([...this.tasksSubject.value, newTask]);
   }
