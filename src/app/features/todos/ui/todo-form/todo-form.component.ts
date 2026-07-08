@@ -1,44 +1,15 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
-import { addIcons } from 'ionicons';
-import { addOutline } from 'ionicons/icons';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-todo-form',
+  templateUrl: './todo-form.component.html',
+  styleUrls: ['./todo-form.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule],
-  template: `
-    <ion-item>
-      <ion-input 
-        [(ngModel)]="title" 
-        (keyup.enter)="onSubmit()"
-        placeholder="Add a new task...">
-      </ion-input>
-      <ion-button slot="end" (click)="onSubmit()" [disabled]="!title.trim()">
-        <ion-icon name="add-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-item>
-  `,
-  styles: [`
-    ion-item {
-      --padding-start: 0;
-    }
-  `]
 })
-export class TodoFormComponent {
-  @Output() add = new EventEmitter<string>();
-  title = '';
+export class TodoFormComponent  implements OnInit {
 
-  constructor() {
-    addIcons({ addOutline });
-  }
+  constructor() { }
 
-  onSubmit() {
-    if (this.title.trim()) {
-      this.add.emit(this.title.trim());
-      this.title = '';
-    }
-  }
+  ngOnInit() {}
+
 }

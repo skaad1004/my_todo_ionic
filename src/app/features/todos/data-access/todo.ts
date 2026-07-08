@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Task } from '../models/task.model';
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class TodosService {
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   tasks$ = this.tasksSubject.asObservable();
 
-  constructor() {}
+  constructor() { }
 
   addTask(title: string) {
     const newTask: Task = {
@@ -21,7 +21,7 @@ export class TodosService {
   }
 
   toggleTask(id: string) {
-    const updatedTasks = this.tasksSubject.value.map(task => 
+    const updatedTasks = this.tasksSubject.value.map(task =>
       task.id === id ? { ...task, completed: !task.completed } : task
     );
     this.tasksSubject.next(updatedTasks);
