@@ -32,7 +32,7 @@
         <h2 class="section-title">Pendientes</h2>
         <span class="section-badge">{{ (pending$ | async)?.length }}</span>
 
-        <ion-button fill="clear" class="sort-btn" (click)="togglePriorityOrder()">
+        <ion-button *ngIf="showManageCategoriesButton" fill="clear" class="sort-btn" (click)="togglePriorityOrder()">
           <ion-icon slot="icon-only" [name]="isPriorityDesc ? 'arrow-down-outline' : 'arrow-up-outline'">
           </ion-icon>
         </ion-button>

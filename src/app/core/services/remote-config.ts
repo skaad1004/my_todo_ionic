@@ -1,25 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AngularFireRemoteConfig } from '@angular/fire/compat/remote-config';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class RemoteConfigService {
-  constructor(private remoteConfig: AngularFireRemoteConfig) { }
+  constructor(private remoteConfig: AngularFireRemoteConfig) {}
 
-  async init(): Promise<void> {
-    await this.remoteConfig.fetchAndActivate();
+  async init(): Promise<boolean> {
+    try {
+      return await this.remoteConfig.fetchAndActivate();
+    } catch {
+      return false;
+    }
   }
 
-  getPriorityEnabled() {
-    return this.remoteConfig.getBoolean('feature_todo_priority_enabled');
-  }
-
-  getPrioritySortEnabled() {
+  getPrioritySortEnabled(): Promise<boolean> {
     return this.remoteConfig.getBoolean('feature_priority_sort_toggle_enabled');
-  }
-
-  getEmptyTitle() {
-    return this.remoteConfig.getString('todo_empty_title');
   }
 }

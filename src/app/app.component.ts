@@ -12,6 +12,5 @@ export class AppComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.remoteConfigService.init();
     console.log('priority sort enabled:', this.remoteConfigService.getPrioritySortEnabled());
-    console.log('empty title:', this.remoteConfigService.getEmptyTitle());
   }
 }

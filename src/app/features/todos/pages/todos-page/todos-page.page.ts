@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, ModalController } from '@ionic/angular';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { TodoService } from '../../data-access/todo';
 import { Task, PRIORITY_ORDER } from '../../../../core/models/task';
 import { Category } from '../../../../core/models/category';
 import { TodoFormComponent } from '../../ui/todo-form/todo-form.component';
 import { TodoListComponent } from '../../ui/todo-list/todo-list.component';
 import { ManageCategoriesComponent } from '../../ui/manage-categories/manage-categories.component';
+import { RemoteConfigService } from '../../../../core/services/remote-config';
 
 @Component({
   selector: 'app-todos-page',
@@ -23,16 +24,22 @@ export class TodosPagePage implements OnInit {
   categories$!: Observable<Category[]>;
   isPriorityDesc = true;
   selectedCategoryId: string | null = null;
+  showManageCategoriesButton = false;
 
   constructor(
     private todoService: TodoService,
-    private modalCtrl: ModalController
-  ) { }
+    private modalCtrl: ModalController,
+    private remoteConfigService: RemoteConfigService
+  ) {
+  }
 
 
-  ngOnInit() {
+  async ngOnInit() {
     this.categories$ = this.todoService.categories$;
     this.loadTasks();
+    await this.remoteConfigService.init();
+    this.showManageCategoriesButton =
+      await this.remoteConfigService.getPrioritySortEnabled();
   }
 
   loadTasks() {
@@ -43,7 +50,7 @@ export class TodosPagePage implements OnInit {
         return this.isPriorityDesc ? result : -result;
       });
 
-    const filterByCategory = (tasks: Task[]) => 
+    const filterByCategory = (tasks: Task[]) =>
       this.selectedCategoryId ? tasks.filter(t => t.categoryId === this.selectedCategoryId) : tasks;
 
     const tasks$ = this.todoService.tasks$;
