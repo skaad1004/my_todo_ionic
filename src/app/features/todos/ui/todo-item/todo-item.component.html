@@ -10,11 +10,18 @@
       {{ task.title }}
     </span>
 
-    <span class="priority" [class]=" 'priority ' + task.priority ">
-      {{ task.priority === 'low' ? 'Baja' : task.priority === 'medium' ? 'Media' : 'Alta' }}
-    </span>
-  </div>
+    <div class="meta-row">
+      <span class="priority" [class]="'priority ' + task.priority">
+        {{ task.priority === 'low' ? 'Baja' : task.priority === 'medium' ? 'Media' : 'Alta' }}
+      </span>
 
+      <ng-container *ngIf="getCategory((categories$ | async), task.categoryId) as category">
+        <ion-badge [color]="category.color" class="category-badge">
+          {{ category.name }}
+        </ion-badge>
+      </ng-container>
+    </div>
+  </div>
   <ion-button fill="clear" color="danger" class="delete-btn" (click)="$event.stopPropagation(); onRemove()">
     <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
   </ion-button>

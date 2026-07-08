@@ -1,0 +1,91 @@
+<ion-header class="categories-header">
+  <ion-toolbar>
+    <ion-title>Categorías</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="close-btn" fill="clear" (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="categories-content">
+  <div class="categories-page">
+    <div class="add-category-form">
+      <div class="form-title-wrap">
+        <h2 class="form-title">Nueva categoría</h2>
+        <p class="form-subtitle">Organiza mejor tus tareas con etiquetas de color</p>
+      </div>
+
+      <ion-item class="category-input-item" lines="none">
+        <ion-input placeholder="Nueva categoría" [(ngModel)]="newCategoryName" (keyup.enter)="addCategory()">
+        </ion-input>
+
+        <ion-select [(ngModel)]="newCategoryColor" interface="popover">
+          <ion-select-option value="primary">Azul</ion-select-option>
+          <ion-select-option value="secondary">Celeste</ion-select-option>
+          <ion-select-option value="tertiary">Violeta</ion-select-option>
+          <ion-select-option value="success">Verde</ion-select-option>
+          <ion-select-option value="warning">Amarillo</ion-select-option>
+          <ion-select-option value="danger">Rojo</ion-select-option>
+          <ion-select-option value="light">Gris Claro</ion-select-option>
+          <ion-select-option value="medium">Gris</ion-select-option>
+          <ion-select-option value="dark">Oscuro</ion-select-option>
+        </ion-select>
+
+        <ion-button slot="end" class="add-btn" (click)="addCategory()" [disabled]="!newCategoryName.trim()">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
+
+    <ion-list class="categories-list" lines="none">
+      <ion-item class="category-item" *ngFor="let category of categories$ | async">
+        <ng-container *ngIf="editingCategoryId !== category.id">
+          <div class="category-read-row">
+            <ion-badge slot="start" [color]="category.color" class="category-pill">
+              {{ category.name }}
+            </ion-badge>
+
+            <div class="category-actions">
+              <ion-button fill="clear" class="icon-btn" (click)="startEdit(category)">
+                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+              </ion-button>
+
+              <ion-button fill="clear" color="danger" class="icon-btn" (click)="deleteCategory(category.id)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="editingCategoryId === category.id">
+          <div class="category-edit-row">
+            <ion-input [(ngModel)]="editCategoryName" (keyup.enter)="saveEdit()"></ion-input>
+
+            <ion-select [(ngModel)]="editCategoryColor" interface="popover">
+              <ion-select-option value="primary">Azul</ion-select-option>
+              <ion-select-option value="secondary">Celeste</ion-select-option>
+              <ion-select-option value="tertiary">Violeta</ion-select-option>
+              <ion-select-option value="success">Verde</ion-select-option>
+              <ion-select-option value="warning">Amarillo</ion-select-option>
+              <ion-select-option value="danger">Rojo</ion-select-option>
+              <ion-select-option value="light">Gris Claro</ion-select-option>
+              <ion-select-option value="medium">Gris</ion-select-option>
+              <ion-select-option value="dark">Oscuro</ion-select-option>
+            </ion-select>
+
+            <div class="category-actions">
+              <ion-button fill="clear" color="success" class="icon-btn" (click)="saveEdit()"
+                [disabled]="!editCategoryName.trim()">
+                <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+              </ion-button>
+
+              <ion-button fill="clear" color="medium" class="icon-btn" (click)="cancelEdit()">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ng-container>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

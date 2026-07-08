@@ -20,6 +20,17 @@
       <ion-select-option value="medium">Medium</ion-select-option>
       <ion-select-option value="high">High</ion-select-option>
     </ion-select>
+    
+    <ion-select
+      class="priority-select"
+      [(ngModel)]="categoryId"
+      interface="popover"
+      placeholder="Categoría">
+      <ion-select-option [value]="undefined">Ninguna</ion-select-option>
+      <ion-select-option *ngFor="let category of categories$ | async" [value]="category.id">
+        {{ category.name }}
+      </ion-select-option>
+    </ion-select>
   </div>
 
   <ion-button

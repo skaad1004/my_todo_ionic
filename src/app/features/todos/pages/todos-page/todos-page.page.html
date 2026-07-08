@@ -4,10 +4,25 @@
       <h1 class="header-title">Mis Tareas</h1>
       <p class="header-subtitle">{{ (pending$ | async)?.length || 0 }} pendientes</p>
     </div>
+    <ion-buttons slot="end">
+      <ion-button (click)="openManageCategories()">
+        <ion-icon slot="icon-only" name="pricetags-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div class="category-filters">
+    <ion-chip [color]="selectedCategoryId === null ? 'primary' : 'medium'" (click)="setCategoryFilter(null)">
+      <ion-label>Todas</ion-label>
+    </ion-chip>
+
+    <ion-chip *ngFor="let category of categories$ | async"
+      [color]="selectedCategoryId === category.id ? category.color : 'medium'" (click)="setCategoryFilter(category.id)">
+      <ion-label>{{ category.name }}</ion-label>
+    </ion-chip>
+  </div>
   <div class="page-wrapper">
     <app-todo-form (addTask)="addTask($event)"></app-todo-form>
 

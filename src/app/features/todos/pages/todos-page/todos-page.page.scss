@@ -126,3 +126,16 @@
   color: var(--todo-empty-color);
   margin: 0;
 }
+
+.category-filters {
+  padding: 10px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-filters ion-chip {
+  margin: 0;
+  flex: 0 0 auto;
+}
