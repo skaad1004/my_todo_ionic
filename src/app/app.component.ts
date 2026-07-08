@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RemoteConfigService } from './core/services/remote-config';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
   standalone: false,
 })
-export class AppComponent {
-  constructor() {}
+export class AppComponent implements OnInit {
+  constructor(private remoteConfigService: RemoteConfigService) { }
+
+  async ngOnInit(): Promise<void> {
+    await this.remoteConfigService.init();
+    console.log('priority sort enabled:', this.remoteConfigService.getPrioritySortEnabled());
+    console.log('empty title:', this.remoteConfigService.getEmptyTitle());
+  }
 }
