@@ -16,9 +16,15 @@
         <ion-icon name="time-outline" class="section-icon"></ion-icon>
         <h2 class="section-title">Pendientes</h2>
         <span class="section-badge">{{ (pending$ | async)?.length }}</span>
+
+        <ion-button fill="clear" class="sort-btn" (click)="togglePriorityOrder()">
+          <ion-icon slot="icon-only" [name]="isPriorityDesc ? 'arrow-down-outline' : 'arrow-up-outline'">
+          </ion-icon>
+        </ion-button>
       </div>
-      <app-todo-list [tasks]="(pending$ | async) ?? []" (toggle)="toggleTask($event)"
-        (remove)="deleteTask($event)"></app-todo-list>
+
+      <app-todo-list [tasks]="(pending$ | async) ?? []" (toggle)="toggleTask($event)" (remove)="deleteTask($event)">
+      </app-todo-list>
     </div>
 
     <div class="section" *ngIf="(completed$ | async)?.length">

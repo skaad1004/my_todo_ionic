@@ -18,13 +18,22 @@ import { TodoListComponent } from '../../ui/todo-list/todo-list.component';
 export class TodosPagePage implements OnInit {
   pending$!: Observable<Task[]>;
   completed$!: Observable<Task[]>;
+  isPriorityDesc = true;
 
   constructor(private todoService: TodoService) { }
 
+
   ngOnInit() {
+    this.loadTasks();
+  }
+
+  loadTasks() {
 
     const sortByPriority = (tasks: Task[]) =>
-      [...tasks].sort((a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority]);
+      [...tasks].sort((a, b) => {
+        const result = PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority];
+        return this.isPriorityDesc ? result : -result;
+      });
 
     const tasks$ = this.todoService.tasks$;
 
@@ -36,6 +45,12 @@ export class TodosPagePage implements OnInit {
       map(tasks => sortByPriority(tasks.filter(t => t.completed)))
     );
   }
+
+  togglePriorityOrder() {
+    this.isPriorityDesc = !this.isPriorityDesc;
+    this.loadTasks();
+  }
+
 
   addTask(taskData: { title: string; priority: Task['priority'] }) {
     this.todoService.addTask(taskData.title, taskData.priority);
