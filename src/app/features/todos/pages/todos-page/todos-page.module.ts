@@ -16,5 +16,7 @@ import { TodosPagePage } from './todos-page.page';
     TodosPagePageRoutingModule
   ],
   declarations: [TodosPagePage]
+
+  
 })
 export class TodosPagePageModule {}

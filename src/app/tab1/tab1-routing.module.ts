@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TodosPagePageModule } from '../features/todos/pages/todos-page/todos-page.module';
+import { TodosPagePage } from '../features/todos/pages/todos-page/todos-page.page';
 const routes: Routes = [
   {
     path: '',
-    component: TodosPagePageModule,
+    component: TodosPagePage,
   }
 ];
 

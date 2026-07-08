@@ -1,0 +1,114 @@
+// ─── Component: Todo Item ───────────────────────────────────
+
+:host {
+  display: block;
+  animation: fadeSlideIn 0.3s ease both;
+}
+
+.item-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 12px 14px 16px;
+  background: var(--todo-card-bg);
+  border-radius: var(--todo-card-border-radius);
+  box-shadow: var(--todo-card-shadow);
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px var(--todo-accent-glow);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &.is-completed {
+    opacity: 0.65;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+// Custom checkbox
+.checkbox-wrapper {
+  flex-shrink: 0;
+}
+
+.custom-checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  border: 2px solid var(--ion-color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+
+  &.checked {
+    background: var(--ion-color-primary);
+    border-color: var(--ion-color-primary);
+    transform: scale(1.05);
+  }
+
+  .check-icon {
+    font-size: 16px;
+    color: #ffffff;
+    animation: popIn 0.2s ease;
+  }
+}
+
+// Task title
+.task-title {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ion-text-color);
+  transition: color 0.3s ease;
+  position: relative;
+
+  &.completed {
+    color: var(--todo-completed-color);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--todo-completed-color);
+  }
+}
+
+// Delete button
+.delete-btn {
+  --color: var(--ion-color-danger);
+  opacity: 0;
+  transform: translateX(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  font-size: 18px;
+
+  .item-card:hover & {
+    opacity: 0.7;
+    transform: translateX(0);
+  }
+
+  &:hover {
+    opacity: 1 !important;
+  }
+}
+
+// Animations
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

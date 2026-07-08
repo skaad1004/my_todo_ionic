@@ -5,7 +5,7 @@ import { Task } from '../models/task';
 @Injectable({
   providedIn: 'root'
 })
-export class TodosService {
+export class TodoService {
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   tasks$ = this.tasksSubject.asObservable();
 
@@ -21,14 +21,14 @@ export class TodosService {
   }
 
   toggleTask(id: string) {
-    const updatedTasks = this.tasksSubject.value.map(task =>
-      task.id === id ? { ...task, completed: !task.completed } : task
+    const updated = this.tasksSubject.value.map(t =>
+      t.id === id ? { ...t, completed: !t.completed } : t
     );
-    this.tasksSubject.next(updatedTasks);
+    this.tasksSubject.next(updated);
   }
 
   deleteTask(id: string) {
-    const updatedTasks = this.tasksSubject.value.filter(task => task.id !== id);
-    this.tasksSubject.next(updatedTasks);
+    const updated = this.tasksSubject.value.filter(t => t.id !== id);
+    this.tasksSubject.next(updated);
   }
 }

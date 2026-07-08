@@ -1,3 +1,21 @@
-<p>
-  todo-form works!
-</p>
+<div class="form-card">
+  <div class="input-wrapper">
+    <ion-icon name="add-circle-outline" class="input-icon"></ion-icon>
+    <ion-input
+      [(ngModel)]="newTitle"
+      placeholder="¿Qué necesitas hacer?"
+      (keyup.enter)="submit()"
+      class="form-input"
+      [clearInput]="true">
+    </ion-input>
+  </div>
+  <ion-button
+    fill="solid"
+    shape="round"
+    color="primary"
+    class="submit-btn"
+    [disabled]="!newTitle.trim()"
+    (click)="submit()">
+    <ion-icon slot="icon-only" name="arrow-forward-outline"></ion-icon>
+  </ion-button>
+</div>

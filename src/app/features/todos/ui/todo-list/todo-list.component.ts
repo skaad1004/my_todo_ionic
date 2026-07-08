@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { Task } from '../../models/task';
+import { TodoItemComponent } from '../todo-item/todo-item.component';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
   standalone: true,
+  imports: [CommonModule, IonicModule, TodoItemComponent]
 })
-export class TodoListComponent  implements OnInit {
+export class TodoListComponent {
+  @Input() tasks: Task[] = [];
+  @Output() toggle = new EventEmitter<string>();
+  @Output() remove = new EventEmitter<string>();
 
-  constructor() { }
+  onToggle(id: string) {
+    this.toggle.emit(id);
+  }
 
-  ngOnInit() {}
-
+  onRemove(id: string) {
+    this.remove.emit(id);
+  }
 }

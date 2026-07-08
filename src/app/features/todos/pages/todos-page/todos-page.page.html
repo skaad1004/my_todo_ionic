@@ -1,13 +1,45 @@
-<ion-header [translucent]="true">
+<ion-header class="todo-header" [translucent]="true">
   <ion-toolbar>
-    <ion-title>todos-page</ion-title>
+    <div class="header-content">
+      <h1 class="header-title">Mis Tareas</h1>
+      <p class="header-subtitle">{{ (pending$ | async)?.length || 0 }} pendientes</p>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">todos-page</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="page-wrapper">
+    <app-todo-form (addTask)="addTask($event)"></app-todo-form>
+
+    <div class="section" *ngIf="(pending$ | async)?.length">
+      <div class="section-header">
+        <ion-icon name="time-outline" class="section-icon"></ion-icon>
+        <h2 class="section-title">Pendientes</h2>
+        <span class="section-badge">{{ (pending$ | async)?.length }}</span>
+      </div>
+      <app-todo-list [tasks]="(pending$ | async) ?? []"
+        (toggle)="toggleTask($event)"
+        (remove)="deleteTask($event)"></app-todo-list>
+    </div>
+
+    <div class="section" *ngIf="(completed$ | async)?.length">
+      <div class="section-header">
+        <ion-icon name="checkmark-done-outline" class="section-icon completed"></ion-icon>
+        <h2 class="section-title">Completadas</h2>
+        <span class="section-badge completed">{{ (completed$ | async)?.length }}</span>
+      </div>
+      <app-todo-list [tasks]="(completed$ | async) ?? []"
+        (toggle)="toggleTask($event)"
+        (remove)="deleteTask($event)"></app-todo-list>
+    </div>
+
+    <!-- Empty state when there are no tasks at all -->
+    <div class="empty-state" *ngIf="!(pending$ | async)?.length && !(completed$ | async)?.length">
+      <div class="empty-icon-wrapper">
+        <ion-icon name="rocket-outline" class="empty-icon"></ion-icon>
+      </div>
+      <h3 class="empty-title">¡Todo listo!</h3>
+      <p class="empty-subtitle">Agrega tu primera tarea para comenzar</p>
+    </div>
+  </div>
 </ion-content>

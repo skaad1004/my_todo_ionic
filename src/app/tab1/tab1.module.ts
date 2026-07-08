@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { TodosPagePageModule } from '../features/todos/pages/todos-page/todos-page.module';
+import { TodosPagePage } from '../features/todos/pages/todos-page/todos-page.page';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 
 @NgModule({
   imports: [
     Tab1PageRoutingModule,
-    TodosPagePageModule
+    TodosPagePage
   ]
 })
 export class Tab1PageModule {}

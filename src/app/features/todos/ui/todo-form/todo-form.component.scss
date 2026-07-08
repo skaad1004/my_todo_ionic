@@ -1,0 +1,66 @@
+// ─── Component: Todo Form ───────────────────────────────────
+
+:host {
+  display: block;
+  margin-top: -24px; // overlap slightly below header
+  position: relative;
+  z-index: 10;
+}
+
+.form-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 8px 8px 16px;
+  background: var(--todo-card-bg);
+  border-radius: var(--todo-card-border-radius);
+  box-shadow: var(--todo-card-shadow);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+
+  &:focus-within {
+    box-shadow: 0 4px 24px var(--todo-accent-glow);
+    transform: translateY(-1px);
+  }
+}
+
+.input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.input-icon {
+  font-size: 22px;
+  color: var(--ion-color-primary);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.form-input {
+  --padding-start: 0;
+  --padding-end: 0;
+  --placeholder-color: var(--todo-empty-color);
+  --placeholder-opacity: 1;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.submit-btn {
+  --border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  --padding-start: 0;
+  --padding-end: 0;
+  flex-shrink: 0;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+
+  &:active {
+    transform: scale(0.92);
+  }
+
+  &[disabled] {
+    opacity: 0.35;
+  }
+}

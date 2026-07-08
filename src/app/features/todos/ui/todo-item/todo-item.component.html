@@ -1,3 +1,15 @@
-<p>
-  todo-item works!
-</p>
+<div class="item-card" [class.is-completed]="task.completed" (click)="onToggle()">
+  <div class="checkbox-wrapper">
+    <div class="custom-checkbox" [class.checked]="task.completed">
+      <ion-icon *ngIf="task.completed" name="checkmark-outline" class="check-icon"></ion-icon>
+    </div>
+  </div>
+  <span class="task-title" [class.completed]="task.completed">{{ task.title }}</span>
+  <ion-button
+    fill="clear"
+    color="danger"
+    class="delete-btn"
+    (click)="$event.stopPropagation(); onRemove()">
+    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+  </ion-button>
+</div>

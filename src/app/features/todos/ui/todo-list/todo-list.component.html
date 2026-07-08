@@ -1,3 +1,15 @@
-<p>
-  todo-list works!
-</p>
+<ng-container *ngIf="tasks?.length; else empty">
+  <app-todo-item *ngFor="let t of tasks; let i = index"
+    [task]="t"
+    [style.animation-delay]="(i * 50) + 'ms'"
+    (toggle)="onToggle(t.id)"
+    (remove)="onRemove(t.id)">
+  </app-todo-item>
+</ng-container>
+
+<ng-template #empty>
+  <div class="empty-list">
+    <ion-icon name="checkmark-circle-outline" class="empty-list-icon"></ion-icon>
+    <p class="empty-list-text">No hay tareas aquí</p>
+  </div>
+</ng-template>
