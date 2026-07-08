@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Category } from '../../models/category';
+import { Category } from '../../../../core/models/category';
 import { TodoService } from '../../data-access/todo';
 
 @Component({

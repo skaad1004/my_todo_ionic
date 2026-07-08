@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { Task } from '../../models/task';
+import { Task } from '../../../../core/models/task';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
 
 @Component({

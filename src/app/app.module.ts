@@ -10,6 +10,9 @@ import { environment } from '../environments/environment';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireRemoteConfigModule, SETTINGS } from '@angular/fire/compat/remote-config';
+import { CATEGORIES_REPOSITORY, TASKS_REPOSITORY } from './core/repositories/repository.tokens';
+import { LocalStorageTasksRepository } from './core/repositories/local-storage-tasks.impl';
+import { LocalStorageCategoryImpl } from './core/repositories/local-storage-category.impl';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +30,9 @@ import { AngularFireRemoteConfigModule, SETTINGS } from '@angular/fire/compat/re
       useValue: {
         minimumFetchIntervalMillis: isDevMode() ? 10000 : 3600000
       }
-    }
+    },
+    { provide: TASKS_REPOSITORY, useClass: LocalStorageTasksRepository },
+    { provide: CATEGORIES_REPOSITORY, useClass: LocalStorageCategoryImpl }
   ],
   bootstrap: [AppComponent],
 })

@@ -2,8 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { TaskPriority } from '../../models/task';
-import { Category } from '../../models/category';
+import { TaskPriority } from '../../../../core/models/task';
+import { Category } from '../../../../core/models/category';
 import { TodoService } from '../../data-access/todo';
 import { Observable } from 'rxjs';
 
